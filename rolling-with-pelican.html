@@ -38,6 +38,9 @@
 
 
 <ul class="main-navigation">
+      <li >
+        <a href="/category/misc.html">Misc</a>
+      </li>
       <li class="active">
         <a href="/category/python.html">Python</a>
       </li>
@@ -56,7 +59,7 @@
 </p>
 <p>Pelican还支持ipython notebook格式(ipynb)，能将博文和Python代码笔记完美结合，没有再好了！</p>
 <p>创建Pelican博客，我主要参考了<a href="http://nafiulis.me/making-a-static-blog-with-pelican.html">Making a Static Blog with Pelican</a>。在我所看到的讲解构建Pelican博客的技术文档中，个人感觉此文最明了也最有借鉴价值。由于习惯markdown语法，我修改了TEMPLATE变量以及make_entry方法。</p>
-<div class="highlight"><pre><span class="ss">TEMPLATE =</span> <span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="ss">TEMPLATE =</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">Title: {title}</span>
 <span class="s2">Date: {year}-{month}-{day} {hour}:{minute:02d}</span>
 <span class="s2">Modified:</span>
@@ -87,13 +90,13 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
 
 
 <p>运行Fabric的fab命令如下，即会在content目录下生成一篇符合markdown语法抬头的*.md文件。</p>
-<div class="highlight"><pre><span class="nv">$ </span>fab make_entry:<span class="s2">&quot;New Post&quot;</span>
+<div class="highlight"><pre><span></span>$ fab make_entry:<span class="s2">&quot;New Post&quot;</span>
 </pre></div>
 
 
 <h4>Preview Content</h4>
 <p>安装livereload，用Fabric自动化生成网页文件。配置完成后只要在本机运行</p>
-<div class="highlight"><pre><span class="nv">$ </span>fab live_build
+<div class="highlight"><pre><span></span>$ fab live_build
 </pre></div>
 
 
@@ -102,31 +105,31 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
 <p>还没有看明白，但今后为了博文支持ipynb格式，plugin的使用是必须的。</p>
 <h4>Hosting on Github Pages</h4>
 <p>ghp-import可以很轻松的把指定文件夹里的内容import到gh-pages branch。运行如下命令</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="nn">output</span>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="nn">output</span>
 <span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">git</span><span class="nd">@github.com</span><span class="p">:</span><span class="n">awesomejie</span><span class="o">/</span><span class="n">awesomejie</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">git</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
 </pre></div>
 
 
 <p>output文件夹下的内容就同步到awesomejie.github.io repository的master branch。</p>
 <p>更好的方法是用fabric automate这两步。在fabfile.py底部添加方法</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">github</span><span class="p">(</span><span class="n">publish_drafts</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span> <span class="c"># 2</span>
-    <span class="k">try</span><span class="p">:</span>  <span class="c"># 3</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;output/drafts&#39;</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">github</span><span class="p">(</span><span class="n">publish_drafts</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span> <span class="c1"># 2</span>
+    <span class="k">try</span><span class="p">:</span>  <span class="c1"># 3</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;output/drafts&#39;</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">publish_drafts</span><span class="p">:</span>
-                <span class="n">local</span><span class="p">(</span><span class="s">&#39;rm -rf output/drafts&#39;</span><span class="p">)</span>
+                <span class="n">local</span><span class="p">(</span><span class="s1">&#39;rm -rf output/drafts&#39;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">pass</span>
 
-    <span class="n">local</span><span class="p">(</span><span class="s">&#39;ghp-import output&#39;</span><span class="p">)</span>  <span class="c"># 4</span>
-    <span class="n">local</span><span class="p">(</span><span class="s">&#39;git push &#39;</span>
-          <span class="s">&#39;https://github.com/awesomejie/awesomejie.github.io.git &#39;</span>
-          <span class="s">&#39;gh-pages:master&#39;</span><span class="p">)</span> <span class="c"># 5</span>
-    <span class="n">local</span><span class="p">(</span><span class="s">&#39;rm -rf output&#39;</span><span class="p">)</span>  <span class="c"># 6</span>
+    <span class="n">local</span><span class="p">(</span><span class="s1">&#39;ghp-import output&#39;</span><span class="p">)</span>  <span class="c1"># 4</span>
+    <span class="n">local</span><span class="p">(</span><span class="s1">&#39;git push &#39;</span>
+          <span class="s1">&#39;https://github.com/awesomejie/awesomejie.github.io.git &#39;</span>
+          <span class="s1">&#39;gh-pages:master&#39;</span><span class="p">)</span> <span class="c1"># 5</span>
+    <span class="n">local</span><span class="p">(</span><span class="s1">&#39;rm -rf output&#39;</span><span class="p">)</span>  <span class="c1"># 6</span>
 </pre></div>
 
 
 <p>Publish到github，只需轻松敲打</p>
-<div class="highlight"><pre><span class="nv">$ </span>fab github
+<div class="highlight"><pre><span></span>$ fab github
 </pre></div></div>
     <footer>
 <p class="meta">
@@ -148,6 +151,9 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
       <li class="post">
+          <a href="/neural-network-for-object-detection.html">Neural Network for Object Detection</a>
+      </li>
+      <li class="post">
           <a href="/rolling-with-pelican.html">Rolling with Pelican</a>
       </li>
     </ul>
@@ -156,6 +162,7 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
       
     <h1>Categories</h1>
     <ul id="recent_posts">
+        <li><a href="/category/misc.html">misc</a></li>
         <li><a href="/category/python.html">Python</a></li>
     </ul>
   </section>
@@ -178,7 +185,6 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
         <ul>
             <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
             <li><a href="http://python.org/" target="_blank">Python.org</a></li>
-            <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
             <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
         </ul>
     </section>
@@ -186,7 +192,7 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
 </aside>    </div>
   </div>
   <footer role="contentinfo"><p>
-    Copyright &copy;  2015  Jay &mdash;
+    Copyright &copy;  2015&ndash;2016  Jay &mdash;
   <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
 </p></footer>
   <script src="/theme/js/modernizr-2.0.js"></script>
