@@ -106,11 +106,11 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
 <h4>Hosting on Github Pages</h4>
 <p>ghp-import可以很轻松的把指定文件夹里的内容import到gh-pages branch。运行如下命令</p>
 <div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="nn">output</span>
-<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">git</span><span class="nd">@github.com</span><span class="p">:</span><span class="n">awesomejie</span><span class="o">/</span><span class="n">awesomejie</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">git</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">jay8688</span><span class="o">/</span><span class="n">jay8688</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">git</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
 </pre></div>
 
 
-<p>output文件夹下的内容就同步到awesomejie.github.io repository的master branch。</p>
+<p>output文件夹下的内容就同步到jay8688.github.io repository的master branch。</p>
 <p>更好的方法是用fabric automate这两步。在fabfile.py底部添加方法</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">github</span><span class="p">(</span><span class="n">publish_drafts</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span> <span class="c1"># 2</span>
     <span class="k">try</span><span class="p">:</span>  <span class="c1"># 3</span>
@@ -122,7 +122,7 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
 
     <span class="n">local</span><span class="p">(</span><span class="s1">&#39;ghp-import output&#39;</span><span class="p">)</span>  <span class="c1"># 4</span>
     <span class="n">local</span><span class="p">(</span><span class="s1">&#39;git push &#39;</span>
-          <span class="s1">&#39;https://github.com/awesomejie/awesomejie.github.io.git &#39;</span>
+          <span class="s1">&#39;https://github.com/jay8688/jay8688.github.io.git &#39;</span>
           <span class="s1">&#39;gh-pages:master&#39;</span><span class="p">)</span> <span class="c1"># 5</span>
     <span class="n">local</span><span class="p">(</span><span class="s1">&#39;rm -rf output&#39;</span><span class="p">)</span>  <span class="c1"># 6</span>
 </pre></div>
@@ -130,6 +130,14 @@ def make_entry<span class="p">(</span>title<span class="p">):</span>
 
 <p>Publish到github，只需轻松敲打</p>
 <div class="highlight"><pre><span></span>$ fab github
+</pre></div>
+
+
+<p>There would be a problem if the gh-pages branch in your current repo is not in-sync with remote master branch. In this circumstance, the approach above could fail to do the push. You would need to delete your current gh-pages branch and fetch a new one from remote. The publication to github will work then because branch conflicts are effectively resolved in this way.</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">D</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">fetch</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jay8688</span><span class="o">/</span><span class="n">jay8688</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span> <span class="n">master</span><span class="p">:</span><span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
+<span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="nn">output</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">jay8688</span><span class="o">/</span><span class="n">jay8688</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">git</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
 </pre></div></div>
     <footer>
 <p class="meta">
