@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Rolling with Git &mdash; Pie Thought On</title>
+  <meta name="author" content="Jay">
+
+
+
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="/favicon.png" rel="icon">
+
+  <link href="/theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Pie Thought On</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+<ul class="main-navigation">
+      <li >
+        <a href="/category/machine-learning.html">Machine learning</a>
+      </li>
+      <li class="active">
+        <a href="/category/misc.html">Misc</a>
+      </li>
+      <li >
+        <a href="/category/python.html">Python</a>
+      </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">Rolling with Git</h1>
+    <p class="meta">
+<time datetime="2015-09-24T13:50:00-04:00" pubdate>Thu 24 September 2015</time>    </p>
+</header>
+
+  <div class="entry-content"><p>前前后后我使用git也有个把年头了，可是中间常被不同事务打扰，每当再拾起git，曾经熟练掌握的命令又变得好生疏。为了能够让知识的储备尽可能的不被中断，这里记录下我经常使用到的一些git命令。今后即使又有好久不碰git，期望回到这里能尽快恢复到我的记忆存储点。</p>
+
+
+<h3>新开一个project</h3>
+<div class="highlight"><pre><span></span>mkdir ~/Hello-World
+cd ~/Hello-World
+git init
+touch README
+git add README
+git commit -m &#39;first commit&#39;
+git remote add origin https://github.com/awesomejie/Hello-World.git
+git push -u origin master
+</pre></div>
+
+
+<h3>remote和branch</h3>
+<div class="highlight"><pre><span></span>git remote -v
+git remote show origin
+# changes URL for the remote origin
+git remote set-url origin https://github.com/awesomejie/Hello-World.git
+git branch -a,-v,-vv
+git branch --merged, --no-merged
+git branch hotfix; git checkout hotfix # 等同于git checkout -b hotfix
+git branch -d hotfix 
+</pre></div>
+
+
+<h3>git的一些拓展运动</h3>
+<div class="highlight"><pre><span></span>git push origin serverfix
+git push origin serverfix:awesomebranch
+git push origin :serverfix  # delete serverfix branch from server
+git push
+git pull
+</pre></div>
+
+
+<p>When you do <code>git fetch origin</code> that brings down new remote branch serverfix, you don't automatically have a new local serverfix branch - you only have an origin/serverfix pointer. To merge this branch into your current workin branch, you can run</p>
+<div class="highlight"><pre><span></span>git merge origin/serverfix
+</pre></div>
+
+
+<p>If you want your own serverfix branch that you can work on,</p>
+<div class="highlight"><pre><span></span>git checkout -b serverfix origin/serverfix
+</pre></div>
+
+
+<p>gives a local branch that starts where origin/serverfix is. Tracking is enabled also. </p>
+<h3>查看commit历史和diff不同的commits</h3>
+<div class="highlight"><pre><span></span>git log -p, --stat
+git diff  # to see what you&#39;ve changed but not yet staged
+git diff SHA_a SHA_b
+git diff -cached (-staged)  # compare staged changes to last commit
+</pre></div>
+
+
+<h3>删除和重命名</h3>
+<div class="highlight"><pre><span></span>git rm
+git rm --cached README.txt  # tell git to ignore the file
+# 文件重命名
+# 以下命令等同于mv README.txt README; git rm README.txt; git add README
+git mv README.txt README
+</pre></div>
+
+
+<h3>修改和undo</h3>
+<div class="highlight"><pre><span></span>git commit --amend
+git reset HEAD README  # unstage file README
+git checkout -- README  # revert change back to last commit
+                        # this is a dangerous command. use with caution.
+</pre></div></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">
+        Jay
+    </span>
+  </span>
+<time datetime="2015-09-24T13:50:00-04:00" pubdate>Thu 24 September 2015</time>  <span class="categories">
+    <a class='category' href='/category/misc.html'>misc</a>
+  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+</div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="/neural-network-for-object-detection.html">Neural Network for Object Detection</a>
+      </li>
+      <li class="post">
+          <a href="/rolling-with-pelican.html">Rolling with Pelican</a>
+      </li>
+      <li class="post">
+          <a href="/rolling-with-python.html">"Rolling with Python"</a>
+      </li>
+      <li class="post">
+          <a href="/rolling-with-git.html">Rolling with Git</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="/category/machine-learning.html">machine learning</a></li>
+        <li><a href="/category/misc.html">misc</a></li>
+        <li><a href="/category/python.html">Python</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+  </section>
+
+
+    <section>
+        <h1>Social</h1>
+        <ul>
+            <li><a href="#" target="_blank">You can add links in your config file</a></li>
+            <li><a href="#" target="_blank">Another social link</a></li>
+        </ul>
+    </section>
+    <section>
+        <h1>Blogroll</h1>
+        <ul>
+            <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+            <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+            <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+    </section>
+
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2015&ndash;2016  Jay &mdash;
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+  <script src="/theme/js/modernizr-2.0.js"></script>
+  <script src="/theme/js/ender.js"></script>
+  <script src="/theme/js/octopress.js" type="text/javascript"></script>
+</body>
+</html>

@@ -39,6 +39,9 @@
 
 <ul class="main-navigation">
       <li class="active">
+        <a href="/category/machine-learning.html">Machine learning</a>
+      </li>
+      <li >
         <a href="/category/misc.html">Misc</a>
       </li>
       <li >
@@ -55,7 +58,25 @@
 <time datetime="2016-07-13T15:14:00-04:00" pubdate>Wed 13 July 2016</time>    </p>
 </header>
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>For years, neural network has always been mystic to me and I never thought that I would do serious learning in this area until recently. I encountered an awesome book <a href="http://neuralnetworksanddeeplearning.com/">Neural Networks and Deep Learning</a> by Michael Nielsen. The book is written in an narrative way and quite interesting to read. After spending several days digesting most content from the book, I am equipped with essential tools to explore neural networks. Hence, in this blog let me discuss how to do object detection with neural networks and deep learning. 
+</p>
+<p>Foremost, big acknowledgment to <a href="http://michaelnielsen.org/">Michael Nielsen</a> for enormous dedication to his book on <a href="http://neuralnetworksanddeeplearning.com/">Neural Networks and Deep Learning</a> and generously making it freely accessible to everyone. To me, it is much more than a free book. Not quite like many other books you can find, it describes every classical element you need to know about neural networks in a way that it is made easiest possible for understanding. Before jumping into the content, please do checkout <a href="http://neuralnetworksanddeeplearning.com/about.html">What this book is about</a> where you will also get an idea on the approaches adopted to help you understand the fundamentals both in theory and practice, and the philosophy advocated by the author:</p>
+<blockquote>
+<p>Technologies come and technologies go, but insight is forever.</p>
+</blockquote>
+<h4>Neural networks for image recognition/classification</h4>
+<p>Not until recently, research and development in neural networks has proven powerful in solving vision problems like image classification. You probably heard that "deep" neural networks are great. While it's true that networks are usually deep for image classification, they also adopt a particular type of architecture different from the conventional one, which is called <a href="http://neuralnetworksanddeeplearning.com/chap6.html#introducing_convolutional_networks">convolutional networks</a>, or deep convolutional networks. </p>
+<p>In classifying handwritten digits from the MNIST data set, Michael showed that using one convolutional-pooling layer, accuracy rate is considerably improved to 98.78 percent versus 97.80 percent by a conventional shallow network. Furthermore, a second convolutional-pooling layer gets the accuracy to 99.06 percent. Some additional steps are found to yield even better results, that include using rectified linear units, expanding the training data, inserting an extra fully-connected layer and apply dropout, using an ensemble of networks. After all these steps, a 99.67 percent accuracy is achieved. Getting to a satisfying accuracy is more of an experimentation, and I am sure it helps to visit <a href="http://neuralnetworksanddeeplearning.com/chap3.html">Chapter 3 Improving the way neural networks learn</a> back and forth. </p>
+<h4>Google's TensorFlow</h4>
+<p>You would be able to find some popular deep learning software. But according to Google senior fellow Jeff Dean, "There are currently 1500 repositories on GitHub which mention TensorFlow". I will choose TensorFlow for my image classification and object detection task. </p>
+<p>There are good tutorials about TensorFlow. To get hands on experience with constructing convolutional neural network, check out <a href="https://www.tensorflow.org/versions/r0.9/tutorials/mnist/pros/index.html#deep-mnist-for-experts">Deep MNIST for Experts</a>. </p>
+<p><a href="https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and-convolutional-neural-networks-f40359318721#.lmkz7nf08">Here</a> is another good blog I encountered using <a href="http://tflearn.org/">TFLearn</a>, a wrapper around Tensorflow. The author also talked about <a href="https://en.wikipedia.org/wiki/Precision_and_recall">Precision and Recall</a> metrics that are useful indication of the performance for binary classification. </p>
+<h4>Neural networks for object detection</h4>
+<p>Deep-learning based object detection based on deep learning is not as popular as its image classification success. I will point to some papers to get started</p>
+<ul>
+<li><a href="http://www.cv-foundation.org/openaccess/content_cvpr_2014/papers/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.pdf">Paper-CVPR14</a> Ross Girshick, Jeff Donahue, Trevor Darrell, Jitendra Malik, Rich feature hierarchies for accurate object detection and semantic segmentation, CVPR, 2014. </li>
+</ul>
+<p>By reading on such latest research, I have a feeling that the methods are suitable enough from an academic point of view, but complex enough for immediate need, as fully understanding and implementing those algorithms could require more cycles than we anticipated. The code for object detection with neural network is also not as accessible as that is for classification. While it is necessary to investigate algorithms on frontier research papers to keep up with latest ideas and find potentially good solutions to problem at hand, there are also such commonalities to academic papers from an industry point of view, application scope may be limited, more effort need to be spent in research, implementation could be difficult etc. It looks to me the problem of object detection is still not fully standardized. So we should keep an eye on any development. </p></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
@@ -64,7 +85,7 @@
     </span>
   </span>
 <time datetime="2016-07-13T15:14:00-04:00" pubdate>Wed 13 July 2016</time>  <span class="categories">
-    <a class='category' href='/category/misc.html'>misc</a>
+    <a class='category' href='/category/machine-learning.html'>machine learning</a>
   </span>
 </p><div class="sharing">
 </div>    </footer>
@@ -81,12 +102,19 @@
       <li class="post">
           <a href="/rolling-with-pelican.html">Rolling with Pelican</a>
       </li>
+      <li class="post">
+          <a href="/rolling-with-python.html">"Rolling with Python"</a>
+      </li>
+      <li class="post">
+          <a href="/rolling-with-git.html">Rolling with Git</a>
+      </li>
     </ul>
   </section>
   <section>
       
     <h1>Categories</h1>
     <ul id="recent_posts">
+        <li><a href="/category/machine-learning.html">machine learning</a></li>
         <li><a href="/category/misc.html">misc</a></li>
         <li><a href="/category/python.html">Python</a></li>
     </ul>
